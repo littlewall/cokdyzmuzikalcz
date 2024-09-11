@@ -197,14 +197,14 @@ const generateStars = (canvas: HTMLCanvasElement) => {
 
     const cw = canvas.width = innerWidth;
     const ch = canvas.height = innerHeight;
-    const stars = Array(400) as Star[];
+    let stars = Array(400) as Star[];
     const dur = 25;
     const mousePosition = {x: cw / 2, y: ch};
 
     canvas.onpointermove = e => gsap.to(mousePosition, {x: e.offsetX, y: e.offsetY});
 
     const generateStars = (curentCw: number, currentCh: number) => {
-        const stars = Array(400) as Star[];
+        stars = Array(400) as Star[];
 
         for (let i = 0; i < stars.length; i++) {
             const {x, y} = getRandomStarPosition(curentCw, currentCh);
