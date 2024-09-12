@@ -1,10 +1,15 @@
 import {gsap} from 'gsap';
 
+interface MousePosition {
+    x: number,
+    y: number,
+}
+
 interface DrawStarProps {
     x: number,
     y: number,
     r: number,
-    mousePosition: {x: number, y: number},
+    mousePosition: MousePosition,
     starsLength: number,
     context: CanvasRenderingContext2D,
     scale: number,
@@ -66,7 +71,7 @@ interface ReDrawProps {
     cw: number,
     ch: number,
     stars: Star[],
-    mousePosition: {x: number, y: number},
+    mousePosition: MousePosition,
 }
 
 const redraw = ({
@@ -123,17 +128,17 @@ const stopCometAnimation = () => {
     }
 };
 
-const handleVisibilityChange = (stars: Star[]) => {
+const handleVisibilityChange = (stars: Star[], mouseposition: MousePosition, isMobile: boolean) => {
     if (document.hidden || !document.hasFocus()) {
         // Pokud stránka není viditelná nebo ztratí focus, zastavíme animaci
         stopCometAnimation();
     } else {
         // Pokud se stránka stane viditelnou nebo získá focus, znovu spustíme animaci
-        startCometAnimation(stars);
+        startCometAnimation(stars, mouseposition, isMobile);
     }
 };
 
-const animateComet = (star: Star) => {
+const animateComet = (star: Star, isMobile: boolean) => {
     const cometTimeline = gsap.timeline({
         onComplete: () => {
             gsap.to(star, {
@@ -156,11 +161,14 @@ const animateComet = (star: Star) => {
 
     gsap.set(star, {isShooting: true});
 
+    const xShift = isMobile ? -100 : -500;
+    const yShift = isMobile ? 600 : 400;
+
     cometTimeline
         .to(star, {
             duration: 2,
-            x: star.x - 500,
-            y: star.y + 400,
+            x: star.x + xShift,
+            y: star.y + yShift,
             opacity: 0.3,
             ease: 'power1.inOut',
             onUpdate: () => {
@@ -174,21 +182,39 @@ const animateComet = (star: Star) => {
         }, '<1.7');
 };
 
-const startCometAnimation = (stars: Star[]) => {
-    const randomStar = () => stars[Math.floor(Math.random() * stars.length)];
+// Funkce pro nalezení nejbližší hvězdy k pozici myši
+const getRandomStarNearMouse = (stars: Star[], mousePosition: MousePosition, radius: number = 150) => {
+    // Najdeme všechny hvězdy, které jsou v daném radiusu od pozice myši
+    const nearbyStars = stars.filter(star => {
+        const distance = Math.hypot(star.x - mousePosition.x, star.y - mousePosition.y);
 
+        return distance <= radius;
+    });
+
+    // Pokud máme nějaké hvězdy v okolí, vybereme jednu náhodně
+    if (nearbyStars.length > 0) {
+        const randomIndex = Math.floor(Math.random() * nearbyStars.length);
+
+        return nearbyStars[randomIndex];
+    }
+
+    // Pokud nejsou žádné hvězdy v radiusu, vybereme tu nejbližší
+    return getRandomStarNearMouse(stars, mousePosition);
+};
+
+const startCometAnimation = (stars: Star[], mousePosition: MousePosition, isMobile: boolean) => {
     cometInterval = setInterval(() => {
-        const star = randomStar();
+        const star = getRandomStarNearMouse(stars, mousePosition);
 
-        animateComet(star);
-    }, 5000);
+        animateComet(star, isMobile);
+    }, 8000);
 };
 
-const handleStarClick = (star: Star) => {
-    animateComet(star);
+const handleStarClick = (star: Star, isMobile: boolean) => {
+    animateComet(star, isMobile);
 };
 
-const generateStars = (canvas: HTMLCanvasElement) => {
+const generateStarsCanvas = (canvas: HTMLCanvasElement) => {
     const context = canvas.getContext('2d');
 
     if (context === null) {
@@ -197,14 +223,22 @@ const generateStars = (canvas: HTMLCanvasElement) => {
 
     const cw = canvas.width = innerWidth;
     const ch = canvas.height = innerHeight;
-    let stars = Array(400) as Star[];
-    const dur = 25;
+    const isMobile = window.innerWidth < 768;
+    const starCount = isMobile ? 200 : 400;
+    let stars = Array(starCount) as Star[];
+    const duration = 25;
     const mousePosition = {x: cw / 2, y: ch};
 
     canvas.onpointermove = e => gsap.to(mousePosition, {x: e.offsetX, y: e.offsetY});
+    canvas.onclick = e => gsap.to(mousePosition, {x: e.offsetX, y: e.offsetY});
 
     const generateStars = (curentCw: number, currentCh: number) => {
-        stars = Array(400) as Star[];
+        const isMobile = window.innerWidth < 768;
+        const starCount = isMobile ? 200 : 400;
+        const minStarSize = isMobile ? 1 : 1.5;
+        const maxStarSize = isMobile ? 3 : 4.5;
+
+        stars = Array(starCount) as Star[];
 
         for (let i = 0; i < stars.length; i++) {
             const {x, y} = getRandomStarPosition(curentCw, currentCh);
@@ -214,7 +248,7 @@ const generateStars = (canvas: HTMLCanvasElement) => {
                 y,
                 originalX: x,
                 originalY: y,
-                r: gsap.utils.random(1.5, 4.5, 0.1),
+                r: gsap.utils.random(minStarSize, maxStarSize, 0.1),
                 isShooting: false,
                 opacity: 1,
                 scale: 1,
@@ -230,7 +264,7 @@ const generateStars = (canvas: HTMLCanvasElement) => {
         const clickedStar = stars.find(star => Math.hypot(star.x - x, star.y - y) < star.r * 4);
 
         if (clickedStar) {
-            handleStarClick(clickedStar);
+            handleStarClick(clickedStar, isMobile);
         }
     };
 
@@ -244,22 +278,22 @@ const generateStars = (canvas: HTMLCanvasElement) => {
         }),
     })
         .from(stars, {
-            duration: dur,
+            duration: duration,
             ease: 'none',
             repeatRefresh: true,
             stagger: {
                 from: 'random',
-                amount: dur,
+                amount: duration,
                 repeat: -1,
             },
         })
-        .seek(dur);
+        .seek(duration);
 
-    startCometAnimation(stars);
+    startCometAnimation(stars, mousePosition, isMobile);
 
-    document.addEventListener('visibilitychange', () => handleVisibilityChange(stars));
-    window.addEventListener('blur', () => handleVisibilityChange(stars));
-    window.addEventListener('focus', () => handleVisibilityChange(stars));
+    document.addEventListener('visibilitychange', () => handleVisibilityChange(stars, mousePosition, isMobile));
+    window.addEventListener('blur', () => handleVisibilityChange(stars, mousePosition, isMobile));
+    window.addEventListener('focus', () => handleVisibilityChange(stars, mousePosition, isMobile));
     document.addEventListener('resize', () => {
         const cw = canvas.width = innerWidth;
         const ch = canvas.height = innerHeight;
@@ -279,4 +313,4 @@ const generateStars = (canvas: HTMLCanvasElement) => {
     });
 };
 
-export default generateStars;
+export default generateStarsCanvas;
