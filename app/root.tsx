@@ -36,7 +36,6 @@ const App = () => {
             </head>
             <body>
                 <main>
-                    Menu
                     <Outlet />
                 </main>
                 <ScrollRestoration />
