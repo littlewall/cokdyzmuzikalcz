@@ -2,27 +2,32 @@
   "name": "cokdyzmuzikalcz",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "build": "remix vite:build",
+    "dev": "remix vite:dev"
   },
   "dependencies": {
-    "@dvdevcz/eslint": "^0.3.3",
+    "@fontsource/fira-sans": "^5.1.0",
+    "@remix-run/node": "^2.12.0",
+    "@remix-run/react": "^2.12.0",
+    "@remix-run/serve": "^2.12.0",
+    "@vercel/remix": "^2.11.2",
     "gsap": "^3.12.5",
-    "next": "14.2.5",
-    "react": "^18",
-    "react-dom": "^18"
+    "isbot": "4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^14.2.9",
+    "@dvdevcz/eslint": "^0.3.3",
+    "@remix-run/dev": "^2.12.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^9.10.0",
-    "eslint-config-next": "14.2.5",
-    "typescript": "^5"
+    "typescript": "^5.6.2",
+    "vite": "^5.4.5",
+    "vite-tsconfig-paths": "^5.0.1"
   },
   "packageManager": "yarn@4.3.1"
 }

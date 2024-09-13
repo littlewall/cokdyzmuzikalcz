@@ -221,11 +221,10 @@ const generateStarsCanvas = (canvas: HTMLCanvasElement) => {
         return;
     }
 
-    const cw = canvas.width = innerWidth;
-    const ch = canvas.height = innerHeight;
+    let cw = canvas.width = innerWidth;
+    let ch = canvas.height = innerHeight;
     const isMobile = window.innerWidth < 768;
-    const starCount = isMobile ? 200 : 400;
-    let stars = Array(starCount) as Star[];
+    let stars: Star[];
     const duration = 25;
     const mousePosition = {x: cw / 2, y: ch};
 
@@ -238,12 +237,12 @@ const generateStarsCanvas = (canvas: HTMLCanvasElement) => {
         const minStarSize = isMobile ? 1 : 1.5;
         const maxStarSize = isMobile ? 3 : 4.5;
 
-        stars = Array(starCount) as Star[];
+        const newStars = Array(starCount) as Star[];
 
-        for (let i = 0; i < stars.length; i++) {
+        for (let i = 0; i < newStars.length; i++) {
             const {x, y} = getRandomStarPosition(curentCw, currentCh);
 
-            stars[i] = {
+            newStars[i] = {
                 x,
                 y,
                 originalX: x,
@@ -254,9 +253,11 @@ const generateStarsCanvas = (canvas: HTMLCanvasElement) => {
                 scale: 1,
             };
         }
+
+        return newStars;
     };
 
-    generateStars(cw, ch);
+    stars = generateStars(cw, ch);
 
     canvas.onclick = e => {
         const x = e.offsetX;
@@ -289,27 +290,15 @@ const generateStarsCanvas = (canvas: HTMLCanvasElement) => {
         })
         .seek(duration);
 
-    startCometAnimation(stars, mousePosition, isMobile);
-
     document.addEventListener('visibilitychange', () => handleVisibilityChange(stars, mousePosition, isMobile));
     window.addEventListener('blur', () => handleVisibilityChange(stars, mousePosition, isMobile));
     window.addEventListener('focus', () => handleVisibilityChange(stars, mousePosition, isMobile));
-    document.addEventListener('resize', () => {
-        const cw = canvas.width = innerWidth;
-        const ch = canvas.height = innerHeight;
 
-        mousePosition.x = cw / 2;
-        mousePosition.y = ch;
-
-        generateStars(cw, ch);
-
-        redraw({
-            context,
-            cw,
-            ch,
-            stars,
-            mousePosition,
-        });
+    // redraw stars on resize
+    window.addEventListener('resize', () => {
+        cw = canvas.width = innerWidth;
+        ch = canvas.height = innerHeight;
+        stars = generateStars(cw, ch);
     });
 };
 
