@@ -1,8 +1,10 @@
 import {MetaFunction} from '@remix-run/react';
-import generateStarsCanvas from '~/helpers/generateStars';
-import styles from './index.module.css';
 
-import logoImage from '~/assets/images/question-mark.svg';
+import generateStarsCanvas from '~/helpers/generateStars';
+import Logo from '~/components/logo/Logo';
+import Menu from '~/components/menu/Menu';
+
+import styles from './index.module.css';
 
 export const meta: MetaFunction = () => {
     return [
@@ -32,17 +34,163 @@ const Index = () => {
                     }}
                 >
                 </canvas>
-                <div className={styles.center}>
-                    <img
-                        className={styles.logo}
-                        src={logoImage}
-                        alt="Co když..? - muzikál logo"
-                        width={300}
-                        height={300}
+                <div className={styles.headerCopy}>
+                    <Logo
+                        id="logo-header"
                     />
                     <h1 className={styles.title}>Co když..?</h1>
                     <h2 className={styles.subtitle}>nový muzikál</h2>
                 </div>
+            </div>
+            <Menu />
+            <div className={styles.content}>
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
+                lorem ipsum
+                <br />
             </div>
         </main>
     );

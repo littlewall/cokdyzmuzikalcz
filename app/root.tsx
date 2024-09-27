@@ -26,7 +26,11 @@ const App = () => {
     return (
         <html lang="cs">
             <head>
-                <meta name="charset" content="utf-8" />
+                <meta charSet="utf-8" />
+                <meta
+                    httpEquiv="Content-Type"
+                    content="text/html;charset=utf-8"
+                />
                 <meta name="author" content="Milan Zítka" />
                 <meta name="robots" content="index, follow" />
                 <meta name="viewport" content="width=device-width,initial-scale=1" />

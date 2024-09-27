@@ -13,4 +13,7 @@ export default defineConfig({
             presets: [vercelPreset()],
         }), tsconfigPaths(),
     ],
+    css: {
+        transformer: 'lightningcss',
+    },
 });

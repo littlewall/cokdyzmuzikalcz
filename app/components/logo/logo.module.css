@@ -1,0 +1,14 @@
+.logo {
+    position: relative;
+    display: flex;
+
+    & svg {
+        --fill: #fff;
+        position: absolute;
+
+        & path {
+            fill: var(--fill);
+        }
+    }
+
+}
