@@ -16,6 +16,27 @@ interface DrawStarProps {
     scale: number,
     opacity: number,
     isShooting: boolean,
+    isCentral: boolean,
+}
+
+interface Star {
+    x: number,
+    y: number,
+    originalX: number,
+    originalY: number,
+    opacity: number,
+    scale: number,
+    r: number,
+    isShooting: boolean,
+    isCentral: boolean,
+}
+
+interface ReDrawProps {
+    context: CanvasRenderingContext2D,
+    cw: number,
+    ch: number,
+    stars: Star[],
+    mousePosition: MousePosition,
 }
 
 let cometInterval: NodeJS.Timeout | null = null;
@@ -30,11 +51,14 @@ const drawStar = ({
     isShooting,
     mousePosition,
     starsLength,
+    isCentral,
 }: DrawStarProps) => {
     const distance = Math.abs(x - mousePosition.x) + Math.abs(y - mousePosition.y);
 
     if (!isShooting) {
-        context.fillStyle = `hsla(0, 0%, 100%, ${Math.max(0.4, 1 - distance / 500)})`;
+        const fillOpacity = isCentral ? opacity : Math.max(0.4, 1 - distance / 500);
+
+        context.fillStyle = `hsla(0, 0%, 100%, ${fillOpacity})`;
     }
 
     if (isShooting) {
@@ -55,25 +79,6 @@ const drawStar = ({
 
     context.fill();
 };
-
-interface Star {
-    x: number,
-    y: number,
-    originalX: number,
-    originalY: number,
-    opacity: number,
-    scale: number,
-    r: number,
-    isShooting: boolean,
-}
-
-interface ReDrawProps {
-    context: CanvasRenderingContext2D,
-    cw: number,
-    ch: number,
-    stars: Star[],
-    mousePosition: MousePosition,
-}
 
 const redraw = ({
     context,
@@ -96,6 +101,7 @@ const redraw = ({
         isShooting: dot.isShooting,
         scale: dot.scale,
         opacity: dot.opacity,
+        isCentral: dot.isCentral,
     }));
 };
 
@@ -107,19 +113,28 @@ const getRandomStarPosition = (cw: number, ch: number) => {
     const rightWidth = cw * 0.6;
     const leftWidth = cw * 0.4;
 
+    const returnObject = {
+        x,
+        y,
+        isCentral: false,
+    };
+
     if ((x < leftWidth || x > rightWidth) && (y < topHeight || y > bottomHeight)) {
-        return {x, y};
+        return returnObject;
     }
 
     if (x > leftWidth && x < rightWidth && (y < topHeight || y > bottomHeight)) {
-        return {x, y};
+        return returnObject;
     }
 
     if ((x < leftWidth || x > rightWidth) && y > topHeight && y < bottomHeight) {
-        return {x, y};
+        return returnObject;
     }
 
-    return getRandomStarPosition(cw, ch);
+    return {
+        ...returnObject,
+        isCentral: true,
+    };
 };
 
 const stopCometAnimation = () => {
@@ -131,12 +146,12 @@ const stopCometAnimation = () => {
 
 const handleVisibilityChange = (stars: Star[], mouseposition: MousePosition, isMobile: boolean) => {
     if (document.hidden || !document.hasFocus()) {
-        // Pokud stránka není viditelná nebo ztratí focus, zastavíme animaci
         stopCometAnimation();
-    } else {
-        // Pokud se stránka stane viditelnou nebo získá focus, znovu spustíme animaci
-        startCometAnimation(stars, mouseposition, isMobile);
+
+        return;
     }
+
+    startCometAnimation(stars, mouseposition, isMobile);
 };
 
 const animateComet = (star: Star, isMobile: boolean) => {
@@ -183,23 +198,19 @@ const animateComet = (star: Star, isMobile: boolean) => {
         }, '<1.7');
 };
 
-// Funkce pro nalezení nejbližší hvězdy k pozici myši
 const getRandomStarNearMouse = (stars: Star[], mousePosition: MousePosition, radius: number = 150) => {
-    // Najdeme všechny hvězdy, které jsou v daném radiusu od pozice myši
     const nearbyStars = stars.filter(star => {
         const distance = Math.hypot(star.x - mousePosition.x, star.y - mousePosition.y);
 
         return distance <= radius;
     });
 
-    // Pokud máme nějaké hvězdy v okolí, vybereme jednu náhodně
     if (nearbyStars.length > 0) {
         const randomIndex = Math.floor(Math.random() * nearbyStars.length);
 
         return nearbyStars[randomIndex];
     }
 
-    // Pokud nejsou žádné hvězdy v radiusu, vybereme tu nejbližší
     return getRandomStarNearMouse(stars, mousePosition);
 };
 
@@ -219,13 +230,25 @@ const applyParallaxEffect = (stars: Star[], canvasHeight: number) => {
     stars.forEach(star => {
         ScrollTrigger.create({
             trigger: 'body',
-            start: 'top top', // Od začátku stránky
-            end: 'bottom top', // Konec scrollu (100vh)
-            scrub: true, // Plynulé posouvání
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
             onUpdate: self => {
-                const progress = self.progress; // Hodnota scrollu (0 až 1)
+                const progress = self.progress;
 
-                star.y = star.originalY + progress * canvasHeight * (star.r / 4); // Parallax posunutí na základě velikosti hvězdy
+                star.y = star.originalY + progress * canvasHeight * (star.r / 4);
+
+                if (!star.isCentral) {
+                    return;
+                }
+
+                if (progress <= 0.25) {
+                    star.opacity = progress * 4;
+
+                    return;
+                }
+
+                star.opacity = 1;
             },
         });
     });
@@ -259,7 +282,11 @@ const generateStarsCanvas = (canvas: HTMLCanvasElement) => {
         const newStars = Array(starCount) as Star[];
 
         for (let i = 0; i < newStars.length; i++) {
-            const {x, y} = getRandomStarPosition(curentCw, currentCh);
+            const {
+                x,
+                y,
+                isCentral,
+            } = getRandomStarPosition(curentCw, currentCh);
 
             newStars[i] = {
                 x,
@@ -268,8 +295,9 @@ const generateStarsCanvas = (canvas: HTMLCanvasElement) => {
                 originalY: y,
                 r: gsap.utils.random(minStarSize, maxStarSize, 0.1),
                 isShooting: false,
-                opacity: 1,
+                opacity: isCentral ? 0 : 1,
                 scale: 1,
+                isCentral,
             };
         }
 
