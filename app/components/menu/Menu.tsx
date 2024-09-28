@@ -82,7 +82,7 @@ const Menu = ({
                 trigger: 'body',
                 start: 10,
                 endTrigger: '.' + styles.navbar,
-                end: 'bottom 10%',
+                end: 'bottom -10%',
                 scrub: true,
                 animation: timeline,
             });
