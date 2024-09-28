@@ -1,4 +1,5 @@
 import {gsap} from 'gsap';
+import {ScrollTrigger} from 'gsap/dist/ScrollTrigger';
 
 interface MousePosition {
     x: number,
@@ -214,8 +215,26 @@ const handleStarClick = (star: Star, isMobile: boolean) => {
     animateComet(star, isMobile);
 };
 
+const applyParallaxEffect = (stars: Star[], canvasHeight: number) => {
+    stars.forEach(star => {
+        ScrollTrigger.create({
+            trigger: 'body',
+            start: 'top top', // Od začátku stránky
+            end: 'bottom top', // Konec scrollu (100vh)
+            scrub: true, // Plynulé posouvání
+            onUpdate: self => {
+                const progress = self.progress; // Hodnota scrollu (0 až 1)
+
+                star.y = star.originalY + progress * canvasHeight * (star.r / 4); // Parallax posunutí na základě velikosti hvězdy
+            },
+        });
+    });
+};
+
 const generateStarsCanvas = (canvas: HTMLCanvasElement) => {
     const context = canvas.getContext('2d');
+
+    gsap.registerPlugin(ScrollTrigger);
 
     if (context === null) {
         return;
@@ -290,11 +309,12 @@ const generateStarsCanvas = (canvas: HTMLCanvasElement) => {
         })
         .seek(duration);
 
+    applyParallaxEffect(stars, ch);
+
     document.addEventListener('visibilitychange', () => handleVisibilityChange(stars, mousePosition, isMobile));
     window.addEventListener('blur', () => handleVisibilityChange(stars, mousePosition, isMobile));
     window.addEventListener('focus', () => handleVisibilityChange(stars, mousePosition, isMobile));
 
-    // redraw stars on resize
     window.addEventListener('resize', () => {
         cw = canvas.width = innerWidth;
         ch = canvas.height = innerHeight;

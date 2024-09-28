@@ -18,8 +18,8 @@ const menuLinks = [
         label: 'O muzikálu',
     },
     {
-        href: '/aktuality',
-        label: 'Aktuality',
+        href: '/album',
+        label: 'Album',
     },
     {
         href: '/galerie',
@@ -82,7 +82,7 @@ const Menu = ({
                 trigger: 'body',
                 start: 10,
                 endTrigger: '.' + styles.navbar,
-                end: 'bottom 30%',
+                end: 'bottom 40%',
                 scrub: true,
                 animation: timeline,
             });

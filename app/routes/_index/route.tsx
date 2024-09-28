@@ -1,10 +1,9 @@
 import {MetaFunction} from '@remix-run/react';
 
-import generateStarsCanvas from '~/helpers/generateStars';
-import Logo from '~/components/logo/Logo';
 import Menu from '~/components/menu/Menu';
 
 import styles from './index.module.css';
+import Header from './Header';
 
 export const meta: MetaFunction = () => {
     return [
@@ -25,23 +24,7 @@ export const meta: MetaFunction = () => {
 const Index = () => {
     return (
         <main className={styles.main}>
-            <div className={styles.starrySky}>
-                <canvas
-                    ref={ref => {
-                        if (ref) {
-                            generateStarsCanvas(ref);
-                        }
-                    }}
-                >
-                </canvas>
-                <div className={styles.headerCopy}>
-                    <Logo
-                        id="logo-header"
-                    />
-                    <h1 className={styles.title}>Co když..?</h1>
-                    <h2 className={styles.subtitle}>nový muzikál</h2>
-                </div>
-            </div>
+            <Header />
             <Menu />
             <div className={styles.content}>
                 lorem ipsum

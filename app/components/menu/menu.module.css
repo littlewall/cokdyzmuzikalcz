@@ -17,10 +17,12 @@
         justify-content: space-between;
         align-items: center;
         list-style: none;
+        padding: 10px 0;
 
         @media (min-width: 900px) {
             margin: 0 0 0 5vw;
             justify-content: unset;
+            padding: 0;
         }
     }
 
