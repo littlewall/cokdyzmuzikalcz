@@ -2626,6 +2626,7 @@ __metadata:
     "@vercel/remix": "npm:^2.11.2"
     clsx: "npm:^2.1.1"
     eslint: "npm:^9.10.0"
+    eslint-plugin-simple-import-sort: "npm:^12.1.1"
     gsap: "npm:^3.12.5"
     isbot: "npm:4"
     lightningcss: "npm:^1.27.0"
@@ -3548,6 +3549,15 @@ __metadata:
   peerDependencies:
     eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
   checksum: 10c0/c9b02cd425c2a7c36b07fe223e405ae235500ac98f04898529cd8842c78fdd5b54f7c29189db5d6eab390ac5ac531af6e7b94a1f3fe9ad1e6564f7d78fd0eb6b
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-simple-import-sort@npm:^12.1.1":
+  version: 12.1.1
+  resolution: "eslint-plugin-simple-import-sort@npm:12.1.1"
+  peerDependencies:
+    eslint: ">=5.0.0"
+  checksum: 10c0/0ad1907ad9ddbadd1db655db0a9d0b77076e274b793a77b982c8525d808d868e6ecfce24f3a411e8a1fa551077387f9ebb38c00956073970ebd7ee6a029ce2b3
   languageName: node
   linkType: hard
 

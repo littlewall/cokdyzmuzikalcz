@@ -1,3 +1,4 @@
+import type {LinksFunction} from '@remix-run/node';
 import {
     Links,
     Meta,
@@ -5,13 +6,11 @@ import {
     Scripts,
     ScrollRestoration,
 } from '@remix-run/react';
-import type {LinksFunction} from '@remix-run/node';
-
-import appStylesHref from './globals.css?url';
 
 import appleTouchIcon from './assets/favicon/apple-touch-icon.png?url';
-import favicon32 from './assets/favicon/favicon-32x32.png?url';
 import favicon16 from './assets/favicon/favicon-16x16.png?url';
+import favicon32 from './assets/favicon/favicon-32x32.png?url';
+import appStylesHref from './globals.css?url';
 
 export const links: LinksFunction = () => [
     {

@@ -2,8 +2,8 @@ import {MetaFunction} from '@remix-run/react';
 
 import Menu from '~/components/menu/Menu';
 
-import styles from './index.module.css';
 import Header from './Header';
+import styles from './index.module.css';
 
 export const meta: MetaFunction = () => {
     return [

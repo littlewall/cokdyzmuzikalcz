@@ -1,9 +1,11 @@
-import generateStarsCanvas from '~/helpers/generateStars';
-import Logo from '~/components/logo/Logo';
-import styles from './header.module.css';
-import {useEffect, useState} from 'react';
 import {gsap} from 'gsap/dist/gsap';
-import {ScrollTrigger} from 'gsap/dist/ScrollTrigger';
+import {useEffect, useState} from 'react';
+
+import Logo from '~/components/logo/Logo';
+import generateStarsCanvas from '~/helpers/animations/intro/generateStars';
+import handleHeaderAnimation, {introHeaderElementIds} from '~/helpers/animations/intro/handleHeaderAnimation';
+
+import styles from './header.module.css';
 
 const Header = () => {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -13,50 +15,14 @@ const Header = () => {
             return;
         }
 
-        gsap.registerPlugin(ScrollTrigger);
-
-        const handleHeaderAnimation = () => {
-            const timeline = gsap.timeline({
-                duration: 1,
-            });
-
-            timeline.add(
-                gsap.to(
-                    '#headerLogo',
-                    {
-                        opacity: 0,
-                        duration: 0.3,
-                    },
-                ),
-                '-=1',
-            );
-
-            timeline.add(
-                gsap.to(
-                    '#headerCopy',
-                    {
-                        y: 80,
-                        scale: 1.5,
-                        duration: 1,
-                    },
-                ),
-                '-=1',
-            );
-
-            ScrollTrigger.create({
-                trigger: '#headerWrapper',
-                start: 'top top',
-                end: 'bottom 10%',
-                scrub: true,
-                animation: timeline,
-            });
-        };
-
-        handleHeaderAnimation();
+        const ctx = gsap.context(() => {
+            handleHeaderAnimation();
+        });
 
         window.addEventListener('resize', handleHeaderAnimation);
 
         return () => {
+            ctx.clear();
             window.removeEventListener('resize', handleHeaderAnimation);
         };
     }, [isLoaded]);
@@ -70,7 +36,7 @@ const Header = () => {
     }, []);
 
     return (
-        <div className={styles.header} id="headerWrapper">
+        <div className={styles.header} id={introHeaderElementIds.headerWrapper}>
             <canvas
                 ref={ref => {
                     if (ref) {
@@ -80,12 +46,12 @@ const Header = () => {
             >
             </canvas>
             <div className={styles.copy}>
-                <div id="headerLogo">
+                <div id={introHeaderElementIds.headerLogo}>
                     <Logo
-                        id="logo-header"
+                        id={introHeaderElementIds.headerLogoIcon}
                     />
                 </div>
-                <div id="headerCopy">
+                <div id={introHeaderElementIds.headerCopy}>
                     <h1 className={styles.title}>Co když..?</h1>
                     <h2 className={styles.subtitle}>nový muzikál</h2>
                 </div>

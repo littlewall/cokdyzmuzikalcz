@@ -1,6 +1,6 @@
 import {CSSProperties} from 'react';
+
 import styles from './logo.module.css';
-import {ScrollTrigger} from 'gsap/dist/ScrollTrigger';
 
 interface LogoProps {
     id: string,
@@ -29,8 +29,6 @@ const Logo = ({
                     if (onLoad) {
                         onLoad();
                     }
-
-                    ScrollTrigger.refresh();
                 }
             }}
         >

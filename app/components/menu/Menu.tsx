@@ -1,14 +1,14 @@
+import {NavLink} from '@remix-run/react';
+import clsx from 'clsx';
 import {gsap} from 'gsap/dist/gsap';
 import {ScrollTrigger} from 'gsap/dist/ScrollTrigger';
-import clsx from 'clsx';
-import {NavLink} from '@remix-run/react';
-import {Flip} from 'gsap/dist/Flip';
 import {
     useEffect,
     useState,
 } from 'react';
 
 import Logo from '~/components/logo/Logo';
+import handleStarAnimation, {introMenuElementIds} from '~/helpers/animations/intro/handleMenuStarAnimation';
 
 import styles from './menu.module.css';
 
@@ -42,9 +42,9 @@ const Menu = ({
             return;
         }
 
-        gsap.registerPlugin(ScrollTrigger, Flip);
-
         const ctx = gsap.context(() => {
+            gsap.registerPlugin(ScrollTrigger);
+
             ScrollTrigger.create({
                 trigger: '.' + styles.navbar,
                 start: 'top top',
@@ -53,42 +53,9 @@ const Menu = ({
                 pinType: 'fixed',
                 pinSpacing: false,
             });
+
+            handleStarAnimation();
         });
-
-        const handleStarAnimation = () => {
-            const state = Flip.getState('#logo-header, #logo-menu');
-            const flip = Flip.from(state, {absolute: true, duration: 1});
-
-            const timeline = gsap.timeline({
-                duration: 1,
-                onStart: () => {
-                    gsap.set('#logo-header', {
-                        visibility: 'hidden',
-                    });
-                },
-            });
-
-            timeline.add(flip, '-=1');
-            timeline.add(
-                gsap.fromTo('#logo-menu', {
-                    '--fill': '#fff',
-                }, {
-                    '--fill': '#050b28',
-                }),
-                '-=0.3',
-            );
-
-            ScrollTrigger.create({
-                trigger: 'body',
-                start: 10,
-                endTrigger: '.' + styles.navbar,
-                end: 'bottom -10%',
-                scrub: true,
-                animation: timeline,
-            });
-        };
-
-        handleStarAnimation();
 
         window.addEventListener('resize', handleStarAnimation);
 
@@ -101,6 +68,7 @@ const Menu = ({
     return (
         <nav
             className={styles.navbar}
+            id={introMenuElementIds.menuNavbar}
             ref={ref => {
                 if (ref) {
                     ScrollTrigger.refresh();
@@ -116,7 +84,7 @@ const Menu = ({
                         Co když..
                     </span>
                     <Logo
-                        id="logo-menu"
+                        id={introMenuElementIds.menuLogoIcon}
                         width="2rem"
                         height="2rem"
                         fill="#050b28"
