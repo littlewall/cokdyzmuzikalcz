@@ -8,18 +8,34 @@ import {
 import type {LinksFunction} from '@remix-run/node';
 
 import appStylesHref from './globals.css?url';
-import faviconHref from './assets/favicon.png?url';
+
+import appleTouchIcon from './assets/favicon/apple-touch-icon.png?url';
+import favicon32 from './assets/favicon/favicon-32x32.png?url';
+import favicon16 from './assets/favicon/favicon-16x16.png?url';
 
 export const links: LinksFunction = () => [
     {
         rel: 'stylesheet',
         href: appStylesHref,
-    }, {
+    },
+    {
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: appleTouchIcon,
+    },
+    {
         rel: 'icon',
-        href: faviconHref,
         type: 'image/png',
         sizes: '32x32',
+        href: favicon32,
     },
+    {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '16x16',
+        href: favicon16,
+    },
+
 ];
 
 const App = () => {
