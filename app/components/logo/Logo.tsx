@@ -25,10 +25,8 @@ const Logo = ({
                 height,
             }}
             ref={ref => {
-                if (ref) {
-                    if (onLoad) {
-                        onLoad();
-                    }
+                if (ref && onLoad) {
+                    onLoad();
                 }
             }}
         >

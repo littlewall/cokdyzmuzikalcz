@@ -33,6 +33,16 @@ const Header = () => {
         }
 
         setIsLoaded(true);
+
+        const refreshScrollTrigger = () => {
+            ScrollTrigger.refresh();
+        };
+
+        window.addEventListener('resize', refreshScrollTrigger);
+
+        return () => {
+            window.removeEventListener('resize', refreshScrollTrigger);
+        };
     }, []);
 
     return (

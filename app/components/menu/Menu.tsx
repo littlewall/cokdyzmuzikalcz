@@ -46,7 +46,7 @@ const Menu = ({
             gsap.registerPlugin(ScrollTrigger);
 
             ScrollTrigger.create({
-                trigger: '.' + styles.navbar,
+                trigger: '#' + introMenuElementIds.menuNavbar,
                 start: 'top top',
                 end: 'max',
                 pin: true,
@@ -57,11 +57,15 @@ const Menu = ({
             handleStarAnimation();
         });
 
-        window.addEventListener('resize', handleStarAnimation);
+        const refreshScrollTrigger = () => {
+            ScrollTrigger.refresh();
+        };
+
+        window.addEventListener('resize', refreshScrollTrigger);
 
         return () => {
             ctx.clear();
-            window.removeEventListener('resize', handleStarAnimation);
+            window.removeEventListener('resize', refreshScrollTrigger);
         };
     }, [isLoadedLogo]);
 

@@ -1,4 +1,6 @@
 import {MetaFunction} from '@remix-run/react';
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
+import {useEffect} from 'react';
 
 import Menu from '~/components/menu/Menu';
 
@@ -22,6 +24,18 @@ export const meta: MetaFunction = () => {
 };
 
 const Index = () => {
+    useEffect(() => {
+        const refreshScrollTrigger = () => {
+            ScrollTrigger.refresh();
+        };
+
+        window.addEventListener('resize', refreshScrollTrigger);
+
+        return () => {
+            window.removeEventListener('resize', refreshScrollTrigger);
+        };
+    }, []);
+
     return (
         <main className={styles.main}>
             <Header />

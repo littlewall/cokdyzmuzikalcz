@@ -25,6 +25,7 @@ const handleMenuStarAnimation = () => {
     });
 
     timeline.add(flip, '-=1');
+
     timeline.add(
         gsap.fromTo(
             '#' + introMenuElementIds.menuLogoIcon,

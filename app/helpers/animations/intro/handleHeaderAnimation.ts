@@ -20,7 +20,7 @@ const handleHeaderAnimation = () => {
             '#' + introHeaderElementIds.headerLogo,
             {
                 opacity: 0,
-                duration: 0.3,
+                duration: 0.1,
             },
         ),
         '-=1',
@@ -52,7 +52,7 @@ const handleHeaderAnimation = () => {
         gsap.to(
             '#' + introHeaderElementIds.headerCopy + ' h2',
             {
-                scale: 1.5,
+                y: 20,
                 duration: 1,
             },
         ),

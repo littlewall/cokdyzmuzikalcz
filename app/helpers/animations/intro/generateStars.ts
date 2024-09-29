@@ -271,6 +271,7 @@ const generateStarsCanvas = (canvas: HTMLCanvasElement) => {
     const mousePosition = {x: cw / 2, y: ch};
 
     canvas.onpointermove = e => gsap.to(mousePosition, {x: e.offsetX, y: e.offsetY});
+    canvas.ontouchstart = e => gsap.to(mousePosition, {x: e.touches[0].clientX, y: e.touches[0].clientY});
     canvas.onclick = e => gsap.to(mousePosition, {x: e.offsetX, y: e.offsetY});
 
     const generateStars = (curentCw: number, currentCh: number) => {
@@ -316,15 +317,16 @@ const generateStarsCanvas = (canvas: HTMLCanvasElement) => {
         }
     };
 
-    gsap.timeline({
-        onUpdate: () => redraw({
-            context,
-            cw,
-            ch,
-            stars,
-            mousePosition,
-        }),
-    })
+    gsap
+        .timeline({
+            onUpdate: () => redraw({
+                context,
+                cw,
+                ch,
+                stars,
+                mousePosition,
+            }),
+        })
         .from(stars, {
             duration: duration,
             ease: 'none',
