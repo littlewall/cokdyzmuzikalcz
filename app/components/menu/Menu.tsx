@@ -10,26 +10,37 @@ import {
 import Logo from '~/components/logo/Logo';
 import handleStarAnimation, {introMenuElementIds} from '~/helpers/animations/intro/handleMenuStarAnimation';
 
+import InstagramIcon from '../icons/InstagramIcon';
+import YoutubeIcon from '../icons/YoutubeIcon';
 import styles from './menu.module.css';
 
-const menuLinks = [
-    {
-        href: '/o-projektu',
-        label: 'O muzikálu',
-    },
-    {
-        href: '/album',
-        label: 'Album',
-    },
-    {
-        href: '/galerie',
-        label: 'Galerie',
-    },
-    {
-        href: '/kontakt',
-        label: 'Kontakt',
-    },
-];
+export const SocialsIcons = () => (
+    <>
+        <a
+            href="https://www.instagram.com/cokdyzmuzikalcz"
+            target="_blank"
+            rel="noreferrer"
+            title="Instagram"
+        >
+            <InstagramIcon />
+        </a>
+        <a
+            href="https://www.youtube.com/@cokdyzmuzikalcz"
+            target="_blank"
+            rel="noreferrer"
+            title="Youtube"
+        >
+            <YoutubeIcon />
+        </a>
+    </>
+);
+
+interface MenuLink {
+    href: string,
+    label: string,
+}
+
+const menuLinks: MenuLink[] = [];
 
 const Menu = ({
     hasSocialIcons = true,
@@ -118,7 +129,7 @@ const Menu = ({
                     </ul>
                     {hasSocialIcons && (
                         <div className={styles.socials}>
-                            {/* <SocialsIcons /> */}
+                            <SocialsIcons />
                         </div>
                     )}
                 </div>

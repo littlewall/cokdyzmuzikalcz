@@ -263,11 +263,12 @@ const generateStarsCanvas = (canvas: HTMLCanvasElement) => {
         return;
     }
 
-    let cw = canvas.width = innerWidth;
-    let ch = canvas.height = innerHeight;
-    const isMobile = window.innerWidth < 768;
+    let cw = canvas.width = window.innerWidth;
+    let ch = canvas.height = window.innerHeight;
     let stars: Star[];
+
     const duration = 25;
+    const isMobile = window.innerWidth < 768;
     const mousePosition = {x: cw / 2, y: ch};
 
     canvas.onpointermove = e => gsap.to(mousePosition, {x: e.offsetX, y: e.offsetY});
@@ -319,13 +320,17 @@ const generateStarsCanvas = (canvas: HTMLCanvasElement) => {
 
     gsap
         .timeline({
-            onUpdate: () => redraw({
-                context,
-                cw,
-                ch,
-                stars,
-                mousePosition,
-            }),
+            onUpdate: () => {
+                console.log('redraw');
+
+                redraw({
+                    context,
+                    cw,
+                    ch,
+                    stars,
+                    mousePosition,
+                });
+            },
         })
         .from(stars, {
             duration: duration,

@@ -4,6 +4,7 @@
     z-index: 5;
     background: #fff;
     border-bottom: 1px solid #ededed;
+    padding: 1rem 0;
 
     &--sticky {
         position: fixed;
@@ -17,7 +18,7 @@
         justify-content: space-between;
         align-items: center;
         list-style: none;
-        padding: 10px 0;
+        /* padding: 10px 0; */
 
         @media (min-width: 900px) {
             margin: 0 0 0 5vw;
@@ -52,6 +53,7 @@
 
     .menuWrapper {
         width: 100%;
+        /* width: 100%;
         display: flex;
         display: none;
         flex-direction: column;
@@ -64,18 +66,18 @@
         &.mobileOpened {
             display: flex;
             border-bottom: 1px solid #ededed;
-        }
+        } */
 
-        @media (min-width: 900px) {
+        /* @media (min-width: 900px) { */
             display: flex;
             flex-direction: row;
             align-items: center;
             position: relative;
             top: 0;
-            left: 30px;
+            /* left: 30px; */
             background: transparent;
             border-bottom-color: transparent;
-        }
+        /* } */
     }
 
     .menuList {
@@ -183,7 +185,8 @@
     }
 
     .hamburgerButton {
-        display: inline-block;
+        /* display: inline-block; */
+        display: none;
         cursor: pointer;
         background: transparent;
         outline: none;
@@ -219,7 +222,7 @@
     }
 
     .socials {
-        padding-bottom: 10px;
+        /* padding-bottom: 10px; */
         display: flex;
         align-items: center;
 
