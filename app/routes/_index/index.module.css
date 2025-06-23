@@ -13,6 +13,7 @@
     padding: 3rem 1rem;
     max-width: 500px;
     flex-direction: column;
+    align-items: center;
     position: relative;
     gap: 4rem;   
     
@@ -71,11 +72,15 @@
 .creativesCard {
     display: flex;
     gap: 2rem;    
-    flex-direction: column;    
-    margin: 0 auto;
+    flex-direction: column; 
+    max-width: 50%;
     
     @media (min-width: 900px) {
         flex-direction: row;
+    }
+
+    &.fullWidth {
+        max-width: 100%;
     }
 
     & .name {

@@ -1,4 +1,5 @@
 import {MetaFunction} from '@remix-run/react';
+import clsx from 'clsx';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import {useEffect} from 'react';
 
@@ -41,19 +42,12 @@ const Index = () => {
         <main className={styles.main}>
             <Header />
             <Menu />
-            <div className={styles.content}>
+            <div className={styles.content} id="o-muzikalu">
                 <div className={styles.copy}>
                     <strong>
                         V záři blížícího se meteoroidu dostává šest mladých lidí šanci napravit chyby minulosti dřív,
                         než padající hvězda splní jejich poslední přání. Najdou ale odvahu říct, po čem doopravdy touží?
                     </strong>
-                    <p>
-                        Tommy, Isabella, Sally, Jimmy, Rebecca a Michael - ti všichni zjišťují, že největší strach nemáme
-                        z padajících hvězd, ale z nevyřčených slov a promarněných příležitostí. Protože co když je právě tohle náš poslední den?
-                    </p>
-                    <p>
-                        <b> A co když není?</b>
-                    </p>
                     <p>
                         Původní český muzikál s intimním příběhem o tom, že někdy musíme ztratit všechno, abychom našli to nejdůležitější.
                     </p>
@@ -75,8 +69,8 @@ const Index = () => {
                     </iframe>
                 </div>
             </div>
-            <div className={styles.content}>
-                <div className={styles.creativesCard}>
+            <div className={styles.content} id="tvurci-obsazeni">
+                <div className={clsx(styles.creativesCard, styles.fullWidth)}>
                     <div className={styles.name}>
                         <div className={styles.imageWrapper}>
                             <div
@@ -93,7 +87,7 @@ const Index = () => {
                             Hudebník, skladatel a textař, jehož cesta k muzikálu vedla přes jeviště i hudební studia.
                             Jako muzikálový herec účinkoval v inscenacích RENT, Ples upírů, Fantom opery či Les Misérables (Bídníci).
                             V autorské tvorbě spojuje vášeň pro hudbu s vyprávěním příběhů. Jeho muzikálovou prvotinou
-                            byl muzikál Misr jazzu, který se uváděl v Karlovarském městském divadle.
+                            byl muzikál Mistr jazzu, který se uváděl v Karlovarském městském divadle.
                         </p>
                     </div>
                 </div>

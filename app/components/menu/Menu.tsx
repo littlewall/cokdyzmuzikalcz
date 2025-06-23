@@ -17,7 +17,7 @@ import styles from './menu.module.css';
 export const SocialsIcons = () => (
     <>
         <a
-            href="https://www.instagram.com/cokdyzmuzikalcz"
+            href="https://www.instagram.com/cokdyzmuzikal"
             target="_blank"
             rel="noreferrer"
             title="Instagram"
@@ -25,7 +25,7 @@ export const SocialsIcons = () => (
             <InstagramIcon />
         </a>
         <a
-            href="https://www.youtube.com/@cokdyzmuzikalcz"
+            href="https://www.youtube.com/@milanzitkacz"
             target="_blank"
             rel="noreferrer"
             title="Youtube"
@@ -40,7 +40,21 @@ interface MenuLink {
     label: string,
 }
 
-const menuLinks: MenuLink[] = [];
+const menuLinks: MenuLink[] = [
+    {
+        href: '/#o-muzikalu',
+        label: 'O muzikálu',
+    }, {
+        href: '/#tvurci-obsazeni',
+        label: 'Tvůrci a obsazení',
+    },
+    /*
+     * {
+     *     href: '/#galerie',
+     *     label: 'Galerie',
+     * },
+     */
+];
 
 const Menu = ({
     hasSocialIcons = true,
@@ -119,7 +133,7 @@ const Menu = ({
                         {menuLinks.map(link => (
                             <li key={link.href} className={styles.menuItem}>
                                 <NavLink
-                                    className={state => clsx(styles.menuLink, state.isActive && styles.linkActive)}
+                                    className={() => clsx(styles.menuLink)}
                                     to={link.href}
                                 >
                                     {link.label}
