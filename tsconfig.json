@@ -1,33 +1,23 @@
 {
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "types": ["@remix-run/node", "vite/client"],
     "allowJs": true,
     "noEmit": true,
     "module": "esnext",
     "moduleResolution": "bundler",
-    "incremental": true,
     "isolatedModules": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "resolveJsonModule": true,
     "target": "ES2022",
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["./app/*"]
-    },
+    "forceConsistentCasingInFileNames": true
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    "**/.server/**/*.ts",
-    "**/.server/**/*.tsx",
-    "**/.client/**/*.ts",
-    "**/.client/**/*.tsx",
-    "eslint.config.mjs",
-    "vite.config.js"
+    "**/.astro/**/*.ts",
+    "eslint.config.mjs"
   ],
   "exclude": ["node_modules"]
 }

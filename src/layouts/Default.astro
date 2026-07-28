@@ -1,0 +1,30 @@
+---
+import '../../globals.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+	canonicalUrl?: string;
+}
+
+const { title = 'Co když..? - nový původní český muzikál', description, canonicalUrl = 'https://cokdyzmuzikal.cz' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="cs">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
+		<title>{title}</title>
+		{description && <meta name="description" content={description} />}
+		<link rel="canonical" href={canonicalUrl} />
+		<meta name="author" content="Milan Zítka" />
+		<meta name="robots" content="index, follow" />
+	</head>
+		<body>
+		<slot />
+	</body>
+</html>
