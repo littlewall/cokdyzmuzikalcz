@@ -75,7 +75,43 @@ const Index = () => {
                     </iframe>
                 </div>
             </div>
-            <div className={styles.content}>
+            <section className={styles.performance} data-section="realm-of-dreams">
+                <div className={styles.performanceIntro}>
+                    <span className={styles.performanceLabel}>Živě z Londýna</span>
+                    <h2>Realm of Dreams v Londýně</h2>
+                    <p>
+                        Píseň <i>Realm of Dreams</i> z muzikálu <i>Co když..?</i> zazněla 25. dubna 2025
+                        v londýnském The Other Palace v rámci projektu Scribbles Vol. 3, který propojuje nové
+                        muzikálové autory s novými muzikálovými zpěváky. Zpívá Esme North, na klavír doprovází
+                        Gary Jerry.
+                    </p>
+                </div>
+                <div className={styles.performanceVideo}>
+                    <iframe
+                        src="https://www.youtube-nocookie.com/embed/kUOoUXOcykA"
+                        title="Realm of Dreams – živě v The Other Palace"
+                        loading="lazy"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen
+                    >
+                    </iframe>
+                </div>
+                <figure className={styles.performanceQuote}>
+                    <blockquote>
+                        <p>
+                            “A really powerful vocal melody and such interesting chords at moments. It reminds me of
+                            the musical epics from the 80&apos;s and 90&apos;s. Something you don&apos;t hear too often these days,
+                            so it must be missed and needed. This growth in dynamics of songs like Anthem from Chess,
+                            or old Andrew Lloyd Weber stuff, or Les Mis. It&apos;s rarer and rarer to hear songs like that.”
+                        </p>
+                    </blockquote>
+                    <figcaption>
+                        <cite>Drew Gasparini</cite>
+                    </figcaption>
+                </figure>
+            </section>
+            <div className={styles.content} data-section="creatives">
                 <div className={styles.creativesCard}>
                     <div className={styles.name}>
                         <div className={styles.imageWrapper}>

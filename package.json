@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "remix vite:build",
-    "dev": "remix vite:dev"
+    "dev": "remix vite:dev",
+    "test": "node --test tests/*.test.ts"
   },
   "dependencies": {
     "@fontsource/fira-sans": "^5.1.0",

@@ -68,6 +68,118 @@
     }
 }
 
+.performance {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    padding: clamp(4rem, 8vw, 6.5rem) 1rem;
+    position: relative;
+    overflow: hidden;
+    color: white;
+    background:
+        radial-gradient(circle at 85% 10%, rgba(94, 143, 205, .24), transparent 34rem),
+        linear-gradient(145deg, #050b28 0%, #102338 100%);
+
+    &::before {
+        content: '';
+        width: 22rem;
+        height: 22rem;
+        position: absolute;
+        top: -15rem;
+        left: -9rem;
+        border-radius: 50%;
+        background: rgba(151, 188, 235, .08);
+        box-shadow: 0 0 7rem rgba(151, 188, 235, .2);
+        pointer-events: none;
+    }
+}
+
+.performanceIntro {
+    width: 100%;
+    max-width: 1000px;
+    position: relative;
+    text-align: left;
+
+    & h2 {
+        max-width: 800px;
+        margin: .65rem 0 1.25rem;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        line-height: 1.05;
+    }
+
+    & p {
+        max-width: 780px;
+        color: rgba(255, 255, 255, .84);
+        font-size: clamp(1.05rem, 2vw, 1.25rem);
+        font-weight: 300;
+        line-height: 1.55;
+    }
+}
+
+.performanceLabel {
+    color: #bcd4f3;
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+}
+
+.performanceVideo {
+    width: 100%;
+    max-width: 1000px;
+    aspect-ratio: 16 / 9;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, .2);
+    border-radius: .75rem;
+    background: #02040d;
+    box-shadow: 0 2rem 5rem rgba(0, 0, 0, .38);
+
+    & iframe {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        inset: 0;
+        border: none;
+    }
+}
+
+.performanceQuote {
+    width: 100%;
+    max-width: 860px;
+    margin-top: .5rem;
+    padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+    position: relative;
+    border-left: 3px solid #bcd4f3;
+    background: rgba(255, 255, 255, .06);
+    text-align: left;
+
+    @media (min-width: 700px) {
+        padding: 1.75rem 2rem;
+    }
+
+    & blockquote p {
+        font-size: clamp(1.05rem, 2vw, 1.25rem);
+        font-style: italic;
+        font-weight: 300;
+        line-height: 1.55;
+    }
+
+    & figcaption {
+        margin-top: 1rem;
+        color: #bcd4f3;
+        font-size: .9rem;
+        font-weight: 700;
+        letter-spacing: .04em;
+    }
+
+    & cite {
+        font-style: normal;
+    }
+}
+
 .creativesCard {
     display: flex;
     gap: 2rem;    
