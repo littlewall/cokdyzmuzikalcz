@@ -1,0 +1,171 @@
+.navbar {
+	width: 100%;
+	display: flex;
+	z-index: 5;
+	background: #fff;
+	border-bottom: 1px solid #ededed;
+	padding: 1rem 0;
+}
+
+.menu {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	list-style: none;
+}
+
+@media (min-width: 900px) {
+	.menu {
+		margin: 0 0 0 5vw;
+		justify-content: unset;
+		padding: 0;
+	}
+}
+
+.menuLogo {
+	display: inline-flex;
+	justify-content: left;
+	align-items: flex-end;
+	min-width: 10vw;
+	color: #050b28;
+	text-decoration: none;
+	position: relative;
+	top: -.5rem;
+}
+
+.menuLogoText {
+	display: inline-block;
+	font-size: 1.5rem;
+	font-weight: 700;
+	text-align: center;
+	text-decoration: none;
+	position: relative;
+	top: .25rem;
+	left: .6rem;
+	text-wrap: nowrap;
+}
+
+.menuWrapper {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	position: relative;
+	top: 0;
+	background: transparent;
+	border-bottom-color: transparent;
+}
+
+.menuList {
+	width: 100%;
+	padding: 0;
+	list-style: none;
+}
+
+@media (min-width: 900px) {
+	.menuList {
+		width: unset;
+		display: flex;
+		flex-direction: row;
+	}
+}
+
+.menuItem {
+	width: 100%;
+	margin-right: 40px;
+	padding: 10px 0;
+	position: relative;
+	border-bottom: 1px solid #ededed;
+}
+
+@media (min-width: 900px) {
+	.menuItem {
+		width: unset;
+		margin-right: 40px;
+		padding: 20px 0;
+		border-bottom: none;
+	}
+}
+
+.menuLink {
+	width: 100%;
+	padding: 0;
+	display: inline-block;
+	color: #555;
+	font-size: 1em;
+	font-weight: 500;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	transition: color .2s linear, border-bottom-color .2s linear;
+}
+
+@media (min-width: 900px) {
+	.menuLink {
+		width: unset;
+		text-align: left;
+		border-bottom: 2px solid transparent;
+	}
+}
+
+.linkActive {
+	border-bottom-color: #050b28;
+}
+
+.hamburgerButton {
+	display: block;
+	cursor: pointer;
+	background: transparent;
+	outline: none;
+	border: none;
+}
+
+.hamburgerButton span {
+	width: 35px;
+	height: 4px;
+	margin: 5px 0;
+	display: block;
+	background-color: #555;
+	transition: all .2s ease;
+}
+
+@media (min-width: 900px) {
+	.hamburgerButton {
+		display: none;
+	}
+}
+
+.socials {
+	display: flex;
+	align-items: center;
+}
+
+.socials a {
+	--margin: 1em;
+	cursor: pointer;
+	color: #555;
+	transition: color .2s linear;
+}
+
+.socials a:hover,
+.socials a:focus {
+	color: #050b28;
+}
+
+.socials a:not(:first-of-type) {
+	margin-left: var(--margin);
+}
+
+@media (min-width: 900px) {
+	.socials {
+		--margin: .75em;
+		margin-right: 5vw;
+		margin-left: auto;
+	}
+}
+
+.socials svg {
+	width: 1.5em;
+}
