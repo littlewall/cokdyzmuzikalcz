@@ -1,0 +1,50 @@
+{"message":"connected.","label":"vite","level":"info"}
+{"message":"Generated 2ms","label":"types","level":"info"}
+{"message":"connected.","label":"vite","level":"info"}
+{"message":"Re-optimizing dependencies because vite config has changed","label":"vite","level":"info"}
+{"message":" astro  v7.1.4 ready in 2747 ms\n┃ Local    http://127.0.0.1:4325/","label":"SKIP_FORMAT","level":"info"}
+{"message":"watching for file changes...","label":null,"level":"info"}
+{"message":"\n update  ▶ New version of Astro available: 7.2.9\n  Run yarn dlx @astrojs/upgrade to update\n","label":"SKIP_FORMAT","level":"warn"}
+{"message":"[200] / 16ms","label":null,"level":"info"}
+{"message":"[200] / 5ms","label":null,"level":"info"}
+{"message":"[console.error] Warning: Prop `style` did not match. Server: \"width: 300px; height: 300px; --fill: #fff; visibility: hidden;\" Client: \"width:300px;height:300px;--fill:#fff\"\n    at svg\n    at div\n    at Logo (http://127.0.0.1:4325/src/components/Logo.client.tsx:4:17)\n    at div\n    at div\n    at div\n    at Header (http://127.0.0.1:4325/src/components/Header.client.tsx:13:34)","label":"vite","level":"error"}
+{"message":"[200] / 3ms","label":null,"level":"info"}
+{"message":"[200] / 2ms","label":null,"level":"info"}
+{"message":"[200] / 3ms","label":null,"level":"info"}
+{"message":"[200] / 3ms","label":null,"level":"info"}
+{"message":"[200] / 2ms","label":null,"level":"info"}
+{"message":"[200] / 4ms","label":null,"level":"info"}
+{"message":"[200] / 3ms","label":null,"level":"info"}
+{"message":"[200] / 2ms","label":null,"level":"info"}
+{"message":"[200] / 2ms","label":null,"level":"info"}
+{"message":"[200] / 3ms","label":null,"level":"info"}
+{"message":"[200] / 3ms","label":null,"level":"info"}
+{"message":"[200] / 3ms","label":null,"level":"info"}
+{"message":"[200] / 2ms","label":null,"level":"info"}
+{"message":"[console.error] Warning: Prop `style` did not match. Server: \"width: 300px; height: 300px; --fill: #fff; visibility: hidden;\" Client: \"width:300px;height:300px;--fill:#fff\"\n    at svg\n    at div\n    at Logo (http://127.0.0.1:4325/src/components/Logo.client.tsx:4:17)\n    at div\n    at div\n    at div\n    at Header (http://127.0.0.1:4325/src/components/Header.client.tsx:13:34)","label":"vite","level":"error"}
+{"message":"[200] / 4ms","label":null,"level":"info"}
+{"message":"/src/components/Menu.client.tsx","label":"watch","level":"info"}
+{"message":"/src/components/Menu.client.tsx","label":"watch","level":"info"}
+{"message":"[200] / 13ms","label":null,"level":"info"}
+{"message":"[200] / 3ms","label":null,"level":"info"}
+{"message":"[200] / 10ms","label":null,"level":"info"}
+{"message":"[console.error] Warning: Prop `style` did not match. Server: \"width: 300px; height: 300px; --fill: #fff; visibility: hidden;\" Client: \"width:300px;height:300px;--fill:#fff\"\n    at svg\n    at div\n    at Logo (http://127.0.0.1:4325/src/components/Logo.client.tsx:4:17)\n    at div\n    at div\n    at div\n    at Header (http://127.0.0.1:4325/src/components/Header.client.tsx:13:34)","label":"vite","level":"error"}
+{"message":"[200] / 2ms","label":null,"level":"info"}
+{"message":"Blocked cross-origin request to /favicon/favicon-16x16.png (Sec-Fetch-Site: cross-site, Sec-Fetch-Mode: no-cors). Cross-origin subresource requests are not allowed on the dev server for security reasons.","label":"router","level":"warn"}
+{"message":"/src/components/Menu.client.tsx","label":"watch","level":"info"}
+{"message":"/src/components/Menu.client.tsx","label":"watch","level":"info"}
+{"message":"[200] / 14ms","label":null,"level":"info"}
+{"message":"/src/components/Menu.client.tsx","label":"watch","level":"info"}
+{"message":"[200] / 4ms","label":null,"level":"info"}
+{"message":"/src/components/Menu.client.tsx","label":"watch","level":"info"}
+{"message":"/src/components/Menu.client.tsx","label":"watch","level":"info"}
+{"message":"/src/components/Menu.client.tsx","label":"watch","level":"info"}
+{"message":"/src/components/Menu.client.tsx","label":"watch","level":"info"}
+{"message":"/src/components/Menu.client.tsx","label":"watch","level":"info"}
+{"message":"/src/components/Menu.client.tsx","label":"watch","level":"info"}
+{"message":"[200] / 15ms","label":null,"level":"info"}
+{"message":"[200] / 1ms","label":null,"level":"info"}
+{"message":"[200] / 100ms","label":null,"level":"info"}
+{"message":"[200] / 19ms","label":null,"level":"info"}
+{"message":"[200] / 13ms","label":null,"level":"info"}
+{"message":"[200] / 7ms","label":null,"level":"info"}

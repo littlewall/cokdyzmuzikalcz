@@ -1,80 +1,63 @@
 import assert from 'node:assert/strict';
 import {
+    mkdtemp,
+    readFile,
+    rm,
+    writeFile,
+} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {
     after,
     before,
     test,
 } from 'node:test';
+import {fileURLToPath} from 'node:url';
 
-import React, {type ComponentType} from 'react';
-import {renderToStaticMarkup} from 'react-dom/server';
-import {MemoryRouter} from 'react-router-dom';
-import {createServer, type ViteDevServer} from 'vite';
-import tsconfigPaths from 'vite-tsconfig-paths';
+import {build} from 'astro';
 
-let markup = '';
-let vite: ViteDevServer | undefined;
+let html = '';
+let outputDirectory = '';
+let originalTypes = Buffer.alloc(0);
+
+const projectRoot = fileURLToPath(new URL('../', import.meta.url));
+const typesFile = join(projectRoot, '.astro', 'types.d.ts');
 
 before(async () => {
-    vite = await createServer({
-        appType: 'custom',
-        configFile: false,
-        css: {
-            transformer: 'lightningcss',
-        },
-        optimizeDeps: {
-            noDiscovery: true,
-        },
-        plugins: [tsconfigPaths()],
-        server: {
-            hmr: false,
-            middlewareMode: true,
-            ws: false,
-        },
+    outputDirectory = await mkdtemp(join(tmpdir(), 'cokdyz-astro-test-'));
+    originalTypes = await readFile(typesFile);
+
+    await build({
+        cacheDir: join(outputDirectory, '.astro'),
+        logLevel: 'silent',
+        outDir: outputDirectory,
+        root: projectRoot,
     });
 
-    const route = await vite.ssrLoadModule('/app/routes/_index/route.tsx') as {
-        default: ComponentType,
-    };
-    const originalConsoleError = console.error;
-
-    console.error = (...args: unknown[]) => {
-        if (String(args[0]).startsWith('Warning: useLayoutEffect does nothing on the server')) {
-            return;
-        }
-
-        originalConsoleError(...args);
-    };
-
-    try {
-        markup = renderToStaticMarkup(
-            React.createElement(
-                MemoryRouter,
-                null,
-                React.createElement(route.default),
-            ),
-        );
-    } finally {
-        console.error = originalConsoleError;
-    }
+    html = await readFile(join(outputDirectory, 'index.html'), 'utf8');
 });
 
 after(async () => {
-    await vite?.close();
+    await writeFile(typesFile, originalTypes);
+
+    if (outputDirectory) {
+        await rm(outputDirectory, {force: true, recursive: true});
+    }
 });
 
 void test('renders the Realm of Dreams performance before the creatives section', () => {
-    const performancePosition = markup.indexOf('data-section="realm-of-dreams"');
-    const creativesPosition = markup.indexOf('data-section="creatives"');
+    const performancePosition = html.indexOf('data-section="realm-of-dreams"');
+    const creativesPosition = html.indexOf('id="tvurci-obsazeni"');
 
     assert.notEqual(performancePosition, -1, 'performance section is missing');
-    assert.notEqual(creativesPosition, -1, 'creatives section marker is missing');
+    assert.notEqual(creativesPosition, -1, 'creatives section is missing');
     assert.ok(performancePosition < creativesPosition, 'performance section must precede creatives');
 });
 
 void test('identifies the London performance and embeds its YouTube video', () => {
-    const section = markup.slice(
-        markup.indexOf('data-section="realm-of-dreams"'),
-        markup.indexOf('data-section="creatives"'),
+    const section = html.slice(
+        html.indexOf('data-section="realm-of-dreams"'),
+        html.indexOf('id="tvurci-obsazeni"'),
     );
 
     assert.match(section, /<h2[^>]*>Realm of Dreams v Londýně<\/h2>/);
@@ -89,9 +72,9 @@ void test('identifies the London performance and embeds its YouTube video', () =
 });
 
 void test('attributes Drew Gasparini’s response to the song', () => {
-    const section = markup.slice(
-        markup.indexOf('data-section="realm-of-dreams"'),
-        markup.indexOf('data-section="creatives"'),
+    const section = html.slice(
+        html.indexOf('data-section="realm-of-dreams"'),
+        html.indexOf('id="tvurci-obsazeni"'),
     );
 
     assert.match(

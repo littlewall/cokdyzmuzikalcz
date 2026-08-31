@@ -26,6 +26,7 @@
 
 .menuLogo {
 	display: inline-flex;
+	flex-shrink: 0;
 	justify-content: left;
 	align-items: flex-end;
 	min-width: 10vw;
@@ -33,6 +34,10 @@
 	text-decoration: none;
 	position: relative;
 	top: -.5rem;
+}
+
+.menuLogo svg:first-child {
+	visibility: hidden;
 }
 
 .menuLogoText {
@@ -56,6 +61,12 @@
 	top: 0;
 	background: transparent;
 	border-bottom-color: transparent;
+}
+
+@media (min-width: 900px) {
+	.menuWrapper {
+		margin-left: 2rem;
+	}
 }
 
 .menuList {

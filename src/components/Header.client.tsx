@@ -4,68 +4,65 @@ import {useEffect, useState} from 'react';
 
 import generateStarsCanvas from '../helpers/animations/intro/generateStars';
 import handleHeaderAnimation, {introHeaderElementIds} from '../helpers/animations/intro/handleHeaderAnimation';
-import Logo from './Logo.client';
 import styles from './Header.module.css';
+import Logo from './Logo.client';
 
 const Header = () => {
-	const [isLoaded, setIsLoaded] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
 
-	useEffect(() => {
-		if (!isLoaded) {
-			return;
-		}
+    useEffect(() => {
+        if (!isLoaded) {
+            return;
+        }
 
-		const ctx = gsap.context(() => {
-			handleHeaderAnimation();
-		});
+        const ctx = gsap.context(() => {
+            handleHeaderAnimation();
+        });
 
-		window.addEventListener('resize', handleHeaderAnimation);
+        return () => {
+            ctx.revert();
+        };
+    }, [isLoaded]);
 
-		return () => {
-			ctx.clear();
-			window.removeEventListener('resize', handleHeaderAnimation);
-		};
-	}, [isLoaded]);
+    useEffect(() => {
+        if (isLoaded) {
+            return;
+        }
 
-	useEffect(() => {
-		if (isLoaded) {
-			return;
-		}
+        setIsLoaded(true);
 
-		setIsLoaded(true);
+        const refreshScrollTrigger = () => {
+            ScrollTrigger.refresh();
+        };
 
-		const refreshScrollTrigger = () => {
-			ScrollTrigger.refresh();
-		};
+        window.addEventListener('resize', refreshScrollTrigger);
 
-		window.addEventListener('resize', refreshScrollTrigger);
+        return () => {
+            window.removeEventListener('resize', refreshScrollTrigger);
+        };
+    }, []);
 
-		return () => {
-			window.removeEventListener('resize', refreshScrollTrigger);
-		};
-	}, []);
-
-	return (
-		<div className={styles.header} id={introHeaderElementIds.headerWrapper}>
-			<canvas
-				ref={ref => {
-					if (ref) {
-						generateStarsCanvas(ref);
-					}
-				}}
-			>
-			</canvas>
-			<div className={styles.copy}>
-				<div id={introHeaderElementIds.headerLogo}>
-					<Logo id={introHeaderElementIds.headerLogoIcon} />
-				</div>
-				<div id={introHeaderElementIds.headerCopy}>
-					<h1 className={styles.title}>Co když..?</h1>
-					<h2 className={styles.subtitle}>nový muzikál</h2>
-				</div>
-			</div>
-		</div>
-	);
+    return (
+        <div className={styles.header} id={introHeaderElementIds.headerWrapper}>
+            <canvas
+                ref={ref => {
+                    if (ref) {
+                        generateStarsCanvas(ref);
+                    }
+                }}
+            >
+            </canvas>
+            <div className={styles.copy}>
+                <div id={introHeaderElementIds.headerLogo}>
+                    <Logo id={introHeaderElementIds.headerLogoIcon} />
+                </div>
+                <div id={introHeaderElementIds.headerCopy}>
+                    <h1 className={styles.title}>Co když..?</h1>
+                    <h2 className={styles.subtitle}>nový muzikál</h2>
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default Header;
